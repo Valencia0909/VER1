@@ -1,0 +1,66 @@
+
+	Punto p1 = new Punto(-5, 6);
+        Punto p2 = new Punto(3, -2);
+        Punto p3 = new Punto(5, 4);
+        Punto p4 = new Punto(-8, -1);
+
+        System.out.println(p1.distancia(p2));
+        System.out.println(p1.cuadrantesOpuestos(p4));
+        System.out.println(p1.dosCuadrantes(p2, p3));
+        System.out.println(p1.cuadrantesDiferentes(p2, p3));
+        System.out.println(p1.calcularPendiente(p4));
+
+//////////////////////////////////////////////////////////
+
+public class Punto {
+
+    private double x;
+    private double y;
+
+    public Punto(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int lugar() {
+        if (this.x < 0 && this.y > 0)
+            return 1;
+        if (this.x > 0 && this.y > 0)
+            return 2;
+        if (this.x > 0 && this.y < 0)
+            return 3;
+        if (this.x < 0 && this.y < 0)
+            return 4;
+        else
+            return 0;
+    }
+
+    public double distancia(Punto p) {
+        return Math.sqrt(Math.pow(p.x - this.x, 2) + Math.pow(p.y - this.y, 2));
+    }
+
+    public boolean cuadrantesOpuestos(Punto p) {
+        return (this.lugar() == 1 && p.lugar() == 3) ||
+                (this.lugar() == 3 && p.lugar() == 1) ||
+                (this.lugar() == 2 && p.lugar() == 4) ||
+                (this.lugar() == 4 && p.lugar() == 2);
+    }
+
+    public boolean dosCuadrantes(Punto p2, Punto p3) {
+        return (this.lugar() == p2.lugar() && this.lugar() != p3.lugar()) ||
+                (this.lugar() == p3.lugar() && this.lugar() != p2.lugar()) ||
+                (p2.lugar() == p3.lugar() && p2.lugar() != this.lugar());
+    }
+
+    public boolean cuadrantesDiferentes(Punto p2, Punto p3) {
+        return this.lugar() != p2.lugar() && this.lugar() != p3.lugar() && p2.lugar() != p3.lugar();
+    }
+
+    public double calcularPendiente(Punto p) {
+        if (this.x == p.x) {
+            throw new ArithmeticException("La pendiente es indefinida.");
+        }
+        return (p.y - this.y) / (p.x - this.x);
+    }
+
+}

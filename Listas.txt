@@ -1,0 +1,226 @@
+	Lista L1 = new Lista(100);
+        Lista L2 = new Lista(100);
+        
+        L1.add(1);
+        L1.add(2);
+        L1.add(3);
+        L1.add(4);
+
+        L2.add(1);
+        L2.add(2);
+        L2.add(3);
+        L2.add(4);
+
+        System.out.println(L1);
+        System.out.println(L1);
+
+        System.out.println(L1.Frecuencia(2));
+        System.out.println(L2.existeFrec(3));
+        System.out.println(L1.seEncuentra(2));
+        System.out.println(L1.estanTodos(L2));
+        L1.concatenar(L2);
+
+        Cadena s1 = new Cadena(10);
+        Cadena s2 = new Cadena(10);
+
+        s1.add("hola");
+        s1.add("mundo");
+        s1.add("java");
+
+        s2.add("hola");
+        s2.add("mundo");
+        s2.add("c#");
+
+        System.out.println(s1.frecuencia("hola", 'o'));
+        System.out.println(s1.existeFree("hola", 2));
+        System.out.println(s1.seEncuentra("java", 'j'));
+        System.out.println(s1.estanTodos("hola", "holanda"));
+        s1.concatenar(s2);
+        System.out.println(s1);
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+public class Lista {
+
+
+
+    private int elem[];
+    private int cantElem;
+    private int MAX;
+
+    public Lista(int MAX) {
+        this.elem = new int[MAX];
+        this.cantElem = 0;
+        this.MAX = MAX;
+    }
+
+    @Override
+    public String toString() {
+        int i = 0;
+        String s1 = "[";
+        while (i < this.cantElem) {
+            s1 = s1 + this.elem[i];
+            if (i < this.cantElem - 1)
+                s1 = s1 + ", ";
+            i = i + 1;
+        }
+        s1 = s1 + "]";
+        return s1;
+    }
+
+    public void add(int x) {
+        this.elem[this.cantElem] = x;
+        this.cantElem++;
+    }
+
+    public int Frecuencia(int x) {
+        int i = 0, f = 0;
+        while (i < this.cantElem) {
+            if (this.elem[i] == x) {
+                f = f + 1;
+            }
+            i = i + 1;
+        }
+        return f;
+    }
+
+    public boolean existeFrec(int k) {
+        int i = 0;
+        while (i < this.cantElem) {
+            if (Frecuencia(this.elem[i]) == k) {
+                return true;
+            }
+            i = i + 1;
+        }
+        return false;
+    }
+
+    public boolean seEncuentra(int x) {
+        int i = 0;
+        while (i < this.cantElem) {
+            if (this.elem[i] == x) {
+                return true;
+            }
+            i = i + 1;
+        }
+        return false;
+    }
+
+    public boolean estanTodos(Lista L2) {
+        int i = 0;
+        while (i < this.cantElem) {
+            if (!L2.seEncuentra(this.elem[i])) {
+                return false;
+            }
+            i = i + 1;
+        }
+        return true;
+    }
+
+    public void concatenar(Lista L2) {
+        int i = 0;
+        while (i < L2.cantElem && this.cantElem < this.MAX) {
+            this.elem[this.cantElem] = L2.elem[i];
+            this.cantElem++;
+            i++;
+        }
+    }
+
+}
+
+///////////////////////////////////////////////////////////////////////
+
+public class Cadena {
+
+
+
+    private String[] elem;
+    private int cantElem;
+    private int MAX;
+
+    public Cadena(int MAX) {
+        this.elem = new String[MAX];
+        this.cantElem = 0;
+        this.MAX = MAX;
+    }
+
+    @Override
+    public String toString() {
+        int i = 0;
+        String s1 = "[";
+        while (i < this.cantElem) {
+            s1 = s1 + "\"" + this.elem[i] + "\"";
+            if (i < this.cantElem - 1)
+                s1 = s1 + ", ";
+            i = i + 1;
+        }
+        s1 = s1 + "]";
+        return s1;
+    }
+
+    public void add(String x) {
+        if (this.cantElem < this.MAX) {
+            this.elem[this.cantElem] = x;
+            this.cantElem++;
+        } else {
+            System.out.println("No se puede agregar más elementos, la lista está llena.");
+        }
+    }
+
+    public int frecuencia(String s1, char ch) {
+        int i = 1;
+        int cont = 0;
+        while (i < s1.length()) {
+            if (s1.charAt(i) == ch) {
+                cont = cont + 1;
+            }
+            i = i + 1;
+        }
+        return cont;
+    }
+
+    public boolean existeFree(String s1, int k) {
+        int i = 0;
+        while (i < s1.length()) {
+            if (frecuencia(s1, s1.charAt(i)) >= k) {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
+    public boolean seEncuentra(String s1, char ch) {
+        int i = 0;
+        while (i < s1.length()) {
+            if (s1.charAt(i) == ch) {
+                return true;
+            }
+            i = i + 1;
+        }
+        return false;
+    }
+
+    public boolean estanTodos(String s1, String s2) {
+        int i = 0;
+        while (i < s1.length()) {
+            if (!seEncuentra(s2, s1.charAt(i))) {
+                return false;
+            }
+            i = i + 1;
+        }
+        return true;
+    }
+
+    public void concatenar(Cadena s2) {
+        int i = 0;
+        while (i < s2.cantElem && this.cantElem < this.MAX) {
+            this.elem[this.cantElem] = s2.elem[i];
+            this.cantElem++;
+            i++;
+        }
+    }
+    
+
+}
