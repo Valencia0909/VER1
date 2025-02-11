@@ -19,6 +19,7 @@
         System.out.println(L1.seEncuentra(2));
         System.out.println(L1.estanTodos(L2));
         L1.concatenar(L2);
+	System.out.println(L1);
 
         Cadena s1 = new Cadena(10);
         Cadena s2 = new Cadena(10);
